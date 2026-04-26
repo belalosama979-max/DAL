@@ -17,7 +17,7 @@ export default function Home() {
       {/* Header / Navbar */}
       <header className="w-full flex items-center justify-between px-8 py-6 z-10">
         <div className="flex items-center gap-3">
-          <img src="/logo.png" alt="شعار المبادرة" className="w-12 h-12 object-contain" />
+          <img src="/logo.png" alt="شعار المبادرة" className="w-16 h-16 object-contain" />
           <span className="text-2xl font-black text-foreground tracking-tight">مبادرة دال</span>
         </div>
         <div className="flex items-center gap-4">
@@ -43,7 +43,7 @@ export default function Home() {
 
           {/* Logo */}
           <div className="flex justify-center mb-8">
-            <img src="/logo.png" alt="مبادرة دال" className="w-28 h-28 object-contain drop-shadow-xl" />
+            <img src="/logo.png" alt="مبادرة دال" className="w-48 h-48 object-contain drop-shadow-2xl" />
           </div>
 
           <h1 className="text-5xl md:text-6xl font-black text-foreground mb-6 leading-tight">
