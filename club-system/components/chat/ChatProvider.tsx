@@ -94,7 +94,13 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
   // Online heartbeat
   useEffect(() => {
     if (!user) return;
-    const tick = () => localStorage.setItem(ONLINE_KEY(user.id), Date.now().toString());
+    const tick = () => {
+      try {
+        localStorage.setItem(ONLINE_KEY(user.id), Date.now().toString());
+      } catch (e) {
+        // ignore localStorage errors
+      }
+    };
     tick();
     const iv = setInterval(tick, 20000);
     return () => clearInterval(iv);
@@ -106,8 +112,12 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
       const now = Date.now();
       const s = new Set<string>();
       users.forEach(u => {
-        const ts = localStorage.getItem(ONLINE_KEY(u.id));
-        if (ts && now - parseInt(ts) < 120000) s.add(u.id);
+        try {
+          const ts = localStorage.getItem(ONLINE_KEY(u.id));
+          if (ts && now - parseInt(ts) < 120000) s.add(u.id);
+        } catch (e) {
+          // ignore localStorage errors
+        }
       });
       setOnlineUsers(s);
     };
@@ -174,14 +184,17 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
   }, [user, theme, loadAllData]);
 
   const setTyping = useCallback((convId: string, typing: boolean) => {
-    // Keep typing in localStorage for simplicity and performance
     if (!user) return;
     let map: Record<string, Record<string, number>> = {};
-    try { map = JSON.parse(localStorage.getItem(TYPING_KEY) || "{}"); } catch {}
+    try { 
+      map = JSON.parse(localStorage.getItem(TYPING_KEY) || "{}"); 
+    } catch {}
     if (!map[convId]) map[convId] = {};
     if (typing) map[convId][user.id] = Date.now();
     else delete map[convId][user.id];
-    localStorage.setItem(TYPING_KEY, JSON.stringify(map));
+    try {
+      localStorage.setItem(TYPING_KEY, JSON.stringify(map));
+    } catch {}
     setTypingMap(map);
   }, [user]);
 

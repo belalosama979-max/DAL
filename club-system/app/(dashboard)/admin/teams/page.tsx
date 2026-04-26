@@ -93,7 +93,11 @@ export default function AdminTeamsPage() {
                   <UsersIcon className="w-4 h-4" />
                   <span className="text-sm font-semibold">{membersCount} أعضاء</span>
                 </div>
-                <Link href={`/admin/teams/${team.id}`} className="text-sm font-bold text-primary hover:underline bg-primary/10 px-3 py-1.5 rounded-lg">
+                <Link 
+                  href={`/admin/teams/${team.id}`} 
+                  prefetch={false}
+                  className="text-sm font-bold text-primary hover:underline bg-primary/10 px-3 py-1.5 rounded-lg"
+                >
                   تفاصيل الفريق
                 </Link>
               </div>

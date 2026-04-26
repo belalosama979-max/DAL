@@ -5,19 +5,20 @@ import { useScopedData as useData } from "@/lib/useScopedData";
 import { isAdmin } from "@/lib/roleUtils";
 import { ArrowRight, Save, Trash2, Upload, Link2, Shield, ShieldAlert, Users } from "lucide-react";
 import React, { useState, useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 import { User } from "@/lib/mockData";
 import { TeamLogo } from "@/components/TeamLogo";
 import { useToast } from "@/components/ToastProvider";
 
-export default function TeamDetailsPage(props: { params: Promise<{ teamId: string }> }) {
+export default function TeamDetailsPage({ params }: { params: Promise<{ teamId: string }> }) {
+  const resolvedParams = React.use(params);
+  const teamId = resolvedParams.teamId;
   const { user } = useAuth();
   const { teams, users, editTeam, deleteTeam, editUser, deleteUser, loading } = useData();
   const { toast } = useToast();
   const router = useRouter();
 
-  const { teamId } = React.use(props.params);
   const team = teams.find((t) => t.id === teamId);
   const teamUsers = users.filter((u) => u.team_ids?.includes(teamId));
 
@@ -47,8 +48,27 @@ export default function TeamDetailsPage(props: { params: Promise<{ teamId: strin
     }
   }, [team?.id]);
 
-  if (!user || !isAdmin(user.role)) return null;
-  if (loading || !teamId) return null;
+  if (loading || !teamId) {
+    return (
+      <div className="flex items-center justify-center p-20">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
+  if (!user || !isAdmin(user.role)) {
+    return (
+      <div className="p-20 text-center text-foreground">
+        <h1 className="text-xl font-bold text-red-500">غير مسموح لك بالدخول لهذه الصفحة</h1>
+        <Link 
+          href="/admin/teams" 
+          className="text-primary hover:underline mt-4 inline-block font-bold"
+        >
+          العودة للفرق
+        </Link>
+      </div>
+    );
+  }
 
   if (!team) {
     return (
