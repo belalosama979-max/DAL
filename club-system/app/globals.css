@@ -52,7 +52,7 @@
   --background: #fffafa;
   --foreground: #2a0f1d;
   
-  --primary: #be185d; /* Pink */
+  --primary: #800949; /* Pink */
   --primary-foreground: #ffffff;
   
   --secondary: #fce7f3;
@@ -68,8 +68,8 @@
     --background: #1f0f16;
     --foreground: #fdf2f8;
     
-    --primary: #f43f5e;
-    --primary-foreground: #4c0519;
+    --primary: #800949;
+    --primary-foreground: #ffffff;
     
     --secondary: #4c1d37;
     --secondary-foreground: #fce7f3;
