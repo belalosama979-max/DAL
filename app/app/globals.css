@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-cairo), ui-sans-serif, system-ui, sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  
+  --animate-fade-in: fade-in 0.6s ease-out;
+  --animate-slide-up: slide-up 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Base Root (Default / Male Theme - Blue/Teal) */
+:root {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  
+  --primary: #0f766e; 
+  --primary-foreground: #ffffff;
+  
+  --secondary: #e2e8f0;
+  --secondary-foreground: #1e293b;
+  
+  --accent: #2dd4bf;
+  --accent-foreground: #042f2e;
+}
+
+/* Dark Mode Default / Male Theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0f172a;
+    --foreground: #f8fafc;
+    
+    --primary: #14b8a6;
+    --primary-foreground: #022c22;
+    
+    --secondary: #334155;
+    --secondary-foreground: #f8fafc;
+
+    --accent: #0d9488;
+    --accent-foreground: #ccfbf1;
+  }
+}
+
+/* Female Theme (Pink / Purple) */
+:root[data-theme="female"] {
+  --background: #fffafa;
+  --foreground: #2a0f1d;
+  
+  --primary: #800949; /* Pink */
+  --primary-foreground: #ffffff;
+  
+  --secondary: #fce7f3;
+  --secondary-foreground: #831843;
+  
+  --accent: #f472b6;
+  --accent-foreground: #500724;
+}
+
+/* Dark Mode Female Theme */
+@media (prefers-color-scheme: dark) {
+  :root[data-theme="female"] {
+    --background: #1f0f16;
+    --foreground: #fdf2f8;
+    
+    --primary: #800949;
+    --primary-foreground: #ffffff;
+    
+    --secondary: #4c1d37;
+    --secondary-foreground: #fce7f3;
+
+    --accent: #e11d48;
+    --accent-foreground: #ffe4e6;
+  }
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in-up {
+  from { opacity: 0; transform: translateY(16px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
