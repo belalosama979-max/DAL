@@ -5,7 +5,7 @@ import { useScopedData as useData } from "@/lib/useScopedData";
 import { isAdmin } from "@/lib/roleUtils";
 import { ArrowRight, Save, Trash2, Upload, Link2, Shield, ShieldAlert, Users } from "lucide-react";
 import React, { useState, useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 import { User } from "@/lib/mockData";
 import { TeamLogo } from "@/components/TeamLogo";

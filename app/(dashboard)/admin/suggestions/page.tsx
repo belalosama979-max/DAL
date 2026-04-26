@@ -25,19 +25,8 @@ export default function AdminSuggestionsPage() {
   const evalSuggestions = suggestions.filter(s => s.category === "evaluation_team" || !s.category);
 
   const categories = [
-    {
-      id: "evaluation_team",
-      label: "فريق التقييم والتطوير 📊",
-      items: evalSuggestions,
-      isEval: true,
-    },
-    ...teams.map(t => ({
-      id: t.id,
-      label: t.name,
-      items: suggestions.filter(s => s.category === t.id),
-      isEval: false,
-      color: t.color_code,
-    })),
+    { id: "evaluation_team", label: "فريق التقييم والتطوير 📊", items: evalSuggestions, isEval: true },
+    ...teams.map(t => ({ id: t.id, label: t.name, items: suggestions.filter(s => s.category === t.id), isEval: false, color: t.color_code })),
   ];
 
   return (
@@ -46,9 +35,7 @@ export default function AdminSuggestionsPage() {
         <Lightbulb className="w-8 h-8 text-yellow-500" />
         <div>
           <h1 className="text-3xl font-black text-foreground">اقتراحات للأفرقة</h1>
-          <p className="text-sm text-foreground/60">
-            {suggestions.length} اقتراح مقدم — اضغط على أي قسم لعرض اقتراحاته
-          </p>
+          <p className="text-sm text-foreground/60">{suggestions.length} اقتراح مقدم</p>
         </div>
       </div>
 
@@ -57,41 +44,25 @@ export default function AdminSuggestionsPage() {
           const isOpen = openCategory === cat.id;
           return (
             <div key={cat.id} className="bg-background border border-secondary rounded-2xl overflow-hidden shadow-sm">
-              {/* Category Header */}
-              <button
-                onClick={() => setOpenCategory(isOpen ? null : cat.id)}
-                className="w-full flex items-center justify-between px-6 py-4 hover:bg-secondary/30 transition-colors text-right"
-              >
+              <button onClick={() => setOpenCategory(isOpen ? null : cat.id)}
+                className="w-full flex items-center justify-between px-6 py-4 hover:bg-secondary/30 transition-colors text-right">
                 <div className="flex items-center gap-3">
                   {cat.isEval ? (
-                    <div className="w-8 h-8 rounded-full bg-yellow-500/10 text-yellow-500 flex items-center justify-center text-sm font-bold">
-                      📊
-                    </div>
+                    <div className="w-8 h-8 rounded-full bg-yellow-500/10 text-yellow-500 flex items-center justify-center text-sm">📊</div>
                   ) : (
-                    <div
-                      className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-sm"
-                      style={{ backgroundColor: (cat as any).color || '#6366f1' }}
-                    >
+                    <div className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-sm"
+                      style={{ backgroundColor: (cat as {color?: string}).color || '#6366f1' }}>
                       <Users className="w-4 h-4" />
                     </div>
                   )}
                   <span className="font-bold text-foreground text-base">{cat.label}</span>
-                  <span className={`px-2.5 py-0.5 rounded-full text-xs font-bold ${
-                    cat.items.length > 0
-                      ? "bg-primary/10 text-primary"
-                      : "bg-secondary/50 text-foreground/40"
-                  }`}>
+                  <span className={`px-2.5 py-0.5 rounded-full text-xs font-bold ${cat.items.length > 0 ? "bg-primary/10 text-primary" : "bg-secondary/50 text-foreground/40"}`}>
                     {cat.items.length} اقتراح
                   </span>
                 </div>
-                {isOpen ? (
-                  <ChevronUp className="w-5 h-5 text-foreground/40" />
-                ) : (
-                  <ChevronDown className="w-5 h-5 text-foreground/40" />
-                )}
+                {isOpen ? <ChevronUp className="w-5 h-5 text-foreground/40" /> : <ChevronDown className="w-5 h-5 text-foreground/40" />}
               </button>
 
-              {/* Category Content */}
               {isOpen && (
                 <div className="border-t border-secondary/50 p-4">
                   {cat.items.length === 0 ? (
@@ -104,10 +75,8 @@ export default function AdminSuggestionsPage() {
                         const author = users.find(u => u.id === s.author_id);
                         return (
                           <div key={s.id} className="bg-secondary/10 border border-secondary/50 rounded-2xl p-5 relative group flex flex-col">
-                            <button
-                              onClick={() => handleDelete(s.id)}
-                              className="absolute top-3 left-3 p-1.5 text-foreground/30 hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-all opacity-0 group-hover:opacity-100"
-                            >
+                            <button onClick={() => handleDelete(s.id)}
+                              className="absolute top-3 left-3 p-1.5 text-foreground/30 hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-all opacity-0 group-hover:opacity-100">
                               <Trash2 className="w-3.5 h-3.5" />
                             </button>
                             <h3 className="font-bold text-foreground mb-2 text-sm pr-4">{s.title}</h3>

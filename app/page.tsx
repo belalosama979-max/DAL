@@ -47,7 +47,7 @@ export default function Home() {
           </div>
 
           <h1 className="text-5xl md:text-6xl font-black text-foreground mb-6 leading-tight">
-            مبادرة <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-accent">دال</span>
+            مبادرة <span className="text-[#1c6759]">دال</span>
           </h1>
 
           <p className="text-lg md:text-xl text-foreground/70 mb-10 leading-relaxed">
@@ -79,7 +79,7 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="text-center py-6 text-foreground/30 text-sm z-10">
-        © {new Date().getFullYear()} مبادرة دال — جامعة الحسين التقنية
+        © {new Date().getFullYear()} مبادرة دال
       </footer>
     </div>
   );

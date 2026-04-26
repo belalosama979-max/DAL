@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuth } from "@/lib/auth";
-import { Home, Users, Activity, Award, LogOut, Megaphone, Trophy, MessageSquarePlus } from "lucide-react";
+import { Home, Users, Activity, Award, LogOut, Megaphone, MessageSquarePlus } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { isAdmin, isLeader, getRoleLabel } from "@/lib/roleUtils";
 
@@ -24,7 +24,6 @@ export function Sidebar() {
 
   const leaderLinks = [
     { name: "الرئيسية", href: "/member", icon: Home },
-    { name: "لوحة شرف القادة", href: "/member/leaderboard-leaders", icon: Trophy },
     { name: "فريقي", href: "/member/team", icon: Users },
     { name: "إدارة المعايير", href: "/admin/criteria", icon: Activity },
     { name: "التقييمات والمهام", href: "/admin/evaluations", icon: Award },
@@ -86,10 +85,7 @@ export function Sidebar() {
       </nav>
 
       <div className="p-4 border-t border-secondary">
-        <a
-          href="/profile"
-          className="block bg-secondary/50 rounded-2xl p-4 mb-3 hover:bg-secondary transition-colors no-underline"
-        >
+        <a href="/profile" className="block bg-secondary/50 rounded-2xl p-4 mb-3 hover:bg-secondary transition-colors no-underline">
           <div className="flex items-center gap-3">
             {user.avatar ? (
               // eslint-disable-next-line @next/next/no-img-element
